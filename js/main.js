@@ -22,10 +22,6 @@ class TagsList {
         this.setTags(this.getTags().filter(item => item !== tag));
     }
 
-    clearTags = () => {
-        this.setTags([]);
-    }
-
     getTags = () => {
         return this.#tags;
     }
