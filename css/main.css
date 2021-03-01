@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* Меня жутко раздражает когда ты кликаешь где-то, а вместо действий у тебя начинают светиться синим элементы */
+    user-select: none;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.header {
+    top: 0;
+    padding: 25px;
+    font-size: 32px;
+}
+
+.main {
+    background-color: #ebecee;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    margin: 0 30% 10%;
+    padding: 30px 20px;
+}
+
+
+.main__tags-list {
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+}
+
+.tags-list__element {
+    cursor: pointer;
+    color: #6a8337;
+    background-color: #cde2a0;
+    border-radius: 3px;
+    border: 1px solid #98bf4f;
+    display: inline-block;
+    margin: 3px;
+    padding: 5px;
+}
+
+.tags-list__element:after {
+    content: '  ✖';
+}
+
+.tags-list__element:hover {
+    background: #e44c42;
+    color: white;
+    border: 1px solid #91332c;
+    transition: 0.5s;
+}
+
+.tags-list__input {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    margin: 10px 0;
+    width: 100px;
+}
+
+.main__checkbox, .main__label {
+    margin: 15px 0;
+    cursor: pointer;
+}
+
+.main__button {
+    cursor: pointer;
+    color: white;
+    background-color: #e44c42;
+    border-radius: 3px;
+    border: 1px solid #91332c;
+    float: right;
+    width: 80px;
+    margin: 10px 0;
+    padding: 7px;
+}
+
+
+.footer {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    padding: 25px 0;
+    background-color: #ebecee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.footer__paragraph {
+    font-size: 16px;
+}
+
+.link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.link-hoverable {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.link-hoverable:after {
+    background-color: black;
+    display: block;
+    content: "";
+    height: 2px;
+    width: 0;
+    transition: width .3s ease-in-out;
+}
+
+.link-hoverable:hover:after, .link-hoverable:focus:after {
+    width: 100%;
+}
+
+:disabled {
+    cursor: not-allowed;
+}
