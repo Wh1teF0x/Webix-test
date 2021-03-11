@@ -9,42 +9,48 @@ class TagsList {
     #readonly = false;
 
     constructor() {
-        this.setTags(JSON.parse(localStorage.getItem('tags')) || []);
+        this.tags = JSON.parse(localStorage.getItem('tags')) || [];
     }
 
-    addTag = (tag) => {
-        if (tag && !tag.isEmpty() && !this.getTags().includes(tag)) {
-            this.setTags([...this.getTags(), tag]);
-        }
-    }
-
-    removeTag = (tag) => {
-        this.setTags(this.getTags().filter(item => item !== tag));
-    }
-
-    getTags = () => {
+    get tags() {
         return this.#tags;
     }
 
-    setTags = (tags) => {
-        if (!this.#readonly) {
+    set tags(tags) {
+        if (!this.readonly) {
             this.#tags = tags;
             localStorage.setItem('tags', JSON.stringify(tags));
             this.reloadList();
         }
     }
 
-    toggleReadOnly = (status) => {
-        this.#readonly = status;
-        button.disabled = status;
-        input.disabled = status;
+    get readonly() {
+        return this.#readonly;
     }
 
+    set readonly(value) {
+        this.#readonly = value;
+        button.disabled = value;
+        input.disabled = value;
+    }
+
+
+    addTag = (tag) => {
+        if (tag && !tag.isEmpty() && !this.tags.includes(tag)) {
+            this.tags = [...this.tags, tag];
+        }
+    }
+
+    removeTag = (tag) => {
+        this.tags = this.tags.filter(item => item !== tag);
+    }
+
+
     reloadList = () => {
-        while (list.firstChild && list.firstChild !== input) {
+        while (list.firstChild && list.firstChild.nodeName !== 'INPUT') {
             list.firstChild.remove();
         }
-        for (let tag of this.getTags()) {
+        for (let tag of this.tags) {
             let newTag = document.createElement('span');
             newTag.textContent = tag;
             newTag.className = 'tags-list__element';
@@ -56,20 +62,21 @@ class TagsList {
     }
 }
 
-const tagEvent = (event) => {
-    if ((event.type === 'keydown' && event.key === 'Enter') || (event.type === 'click')) {
+const tagList = new TagsList();
+
+input.onkeydown = event => {
+    if (event.key === 'Enter') {
         event.preventDefault();
         tagList.addTag(input.value);
         input.value = '';
     }
-}
-
-const tagList = new TagsList();
-
-input.onkeydown = tagEvent;
-button.onclick = tagEvent;
+};
+button.onclick = () => {
+    tagList.addTag(input.value);
+    input.value = '';
+};
 checkbox.onchange = event => {
-    tagList.toggleReadOnly(event.currentTarget.checked);
+    tagList.readonly = event.currentTarget.checked;
 };
 
 String.prototype.isEmpty = function () {
